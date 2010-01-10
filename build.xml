@@ -6,7 +6,7 @@
 <project name="delicious" default="compile" basedir=".">
 
     <property name="name" value="delicious"/>
-    <property name="version" value="1.15"/>
+    <property name="version" value="1.16"/>
 
     <property name="lib.dir" value="${basedir}/lib"/>
     <property name="src.dir" value="${basedir}/src"/>
@@ -75,7 +75,9 @@
                 <include name="**/*.tld"/>
             </fileset>
         </copy>
-        <javac srcdir="${src.dir}"
+        <javac source="1.4"
+        	target="1.4"
+        	srcdir="${src.dir}"
             destdir="${compile.dir}"
             debug="on"
             deprecation="on"

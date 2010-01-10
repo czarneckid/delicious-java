@@ -71,6 +71,20 @@ public class Post {
         this.shared = shared;
         this.others = others;
     }
+    
+    /**
+     * Construct a new Post
+     *
+     * @param href        Link
+     * @param description Description of link
+     * @param hash        Hash of link
+     * @param tag         Space-delimited set of tags
+     * @param time        Time when link added
+     * @param shared      Whether or not the post is shared
+     */
+    public Post(String href, String description, String extended, String hash, String tag, String time, boolean shared) {
+       this(href, description, extended, hash, tag, time, shared, -1);
+    }
 
     /**
      * Get link of post
@@ -262,5 +276,15 @@ public class Post {
         }
 
         return super.equals(obj);
+    }
+    
+    /**
+     * Method to calculate hash code based on <code>{@link #getHref()}</code>
+     */
+    public int hashCode() {
+    	int result = 3;
+    	result = 73 * result + (getHref() != null ? getHref().hashCode() : 0);
+    	
+    	return result;
     }
 }
