@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+  "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>delicious</short-name>
+    <uri>http://delicious-java.sf.net</uri>
+    <description>
+    JSP tags for integrating with the del.icio.us bookmarking service.
+    </description>
+
+    <tag>
+        <name>recentPosts</name>
+        <tag-class>del.icio.us.tagext.GetRecentPostsTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+      Gets recent posts from the del.icio.us bookmarking service.
+        </description>
+
+        <variable>
+            <name-from-attribute>var</name-from-attribute>
+            <variable-class>java.util.List</variable-class>
+            <scope>AT_BEGIN</scope>
+        </variable>
+
+        <attribute>
+            <name>var</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>username</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>password</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>count</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>tag</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>timeout</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

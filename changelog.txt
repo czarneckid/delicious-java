@@ -1,0 +1,103 @@
+Version 1.16 - Release Date: Available from CVS - Codename: Dragonforce
+-----------------------------------------------------------------------
+- Add: Support for "others" attribute
+
+Version 1.15 - Release Date: May 14, 2007 - Codename: Audioslave
+---------------------------------------------------------------
+- Fix: [ 1718567 ] Preemptive authentication
+       https://sourceforge.net/tracker/?func=detail&atid=689673&aid=1718567&group_id=121225
+       
+Version 1.14 - Release Date: January 18, 2007 - Codename: Minus the Bear
+-------------------------------------------------------------------------
+- Add: Post:public boolean equals(Object obj)
+- Add: public List getAllPosts(String filterTag)
+- Fix: [ 1594379 ] wrong scope for variable element in delicious.tld
+       https://sourceforge.net/tracker/?func=detail&atid=689673&aid=1594379&group_id=121225
+
+Version 1.13 - Release Date: August 6, 2006 - Codename: Wolfmother
+----------------------------------------------------------------------
+- Fix: Problems with Non-UTF8-Strings, https://sourceforge.net/tracker/?func=detail&atid=689673&aid=1532303&group_id=121225
+
+Version 1.12 - Release Date: May 17, 2006 - Codename: Loretta Lynn
+------------------------------------------------------------------
+- HTTPS and API endpoint changes: http://blog.del.icio.us/blog/2006/05/feel_secure.html
+
+Version 1.11 - Release Date: May 8, 2006 - Codename: Ministry
+-------------------------------------------------------------
+- Fix: Fixed replace property in addPost(...) method where it was not being sent with the request
+- Add: Shared property to addPost(...) method to mark a bookmark as shared or not
+
+Version 1.10 - Release Date: February 22, 2006 - Codename: Bob Dylan
+--------------------------------------------------------------------
+- Fix:    DeliciousUtils UTC date format object now correctly changes dates to UTC instead of local timezone (reported by Erik Thauvin)
+- Add:    public void setApiEndpoint(String apiEndpoint)
+- Update: Updated Jakarta Commons HttpClient library to 3.0 final.
+- Add:    public List getDatesWithPost() method
+- Add:    public List getPosts() method
+- Add:    public List getRecentPosts() method
+- Add:    public boolean addPost(String url, String description) method
+
+Version 1.9 - Codename: Dead Milkmen
+------------------------------------
+- Add: public List getBundles() method
+- Add: public boolean addBundle(String bundleName, String tags) method
+- Add: public boolean deleteBundle(String bundleName) method
+
+Version 1.8 - Codename: Beck
+----------------------------
+- Add: Set method for proxy authentication
+- Add: public List getPosts(String filterTag, Date date, String url) method
+- Add: public List getPostForURL(String url) method
+- Add: public boolean addPost(String url, String description, String extended, String tags, Date date, boolean replace) method
+- Add: public List getPostsForTag(String tag) method
+- Add: public List getPostsForTags(String[] tags) method
+
+Version 1.7 - Codename: Pet Shop Boys
+-------------------------------------
+- Add: JSP tag for GetRecentPosts (submitted by Simon Brown)
+- Added Simon Brown to project
+
+Version 1.6 - Codename: The Go-Gos
+----------------------------------
+-    Add: Post.getTagsAsArray(String splitRegex) method
+- Update: Set default method retry handler to not retry if HTTP method fails
+- Update: Jakarta Commons HTTPClient RC2 library used
+
+Upgrading:
+- You may remove the commons-httpclient-3.0-alpha2.jar file and replace it with the commons-httpclient-3.0-rc2.jar.
+
+Version 1.5 - Codename: Porno for Pyros
+---------------------------------------
+- Update: Changed from GET to POST with addPost method
+
+Version 1.4 - Codename: The Germs
+-----------------------------------------
+-    Add: DeliciousNotAuthorizedException
+- Update: If authorization fails for any of the methods, a DeliciousNotAuthorizedException is thrown
+-    Fix: addPost date format fix, https://sourceforge.net/tracker/index.php?func=detail&aid=1088158&group_id=121225&atid=689675 
+
+Version 1.3 - Codename: Eric B. and Rakim
+-----------------------------------------
+- Add: getLastUpdate() call
+- Add: getResultMetaInformation() call to retrieve an object which gets populated on
+       certain calls with information about the last call. In the case of calling the
+       getAllPosts() method, the result meta information will be populated with a
+       java.util.Date object containing the last update time
+
+Version 1.2 - Codename: Deftones
+--------------------------------
+-    Add: DeliciousException
+- Change: API methods may now throw DeliciousException if a SAXException is encounted. IOException is only
+          logged as an error.
+           
+Version 1.1 - Codename: They Might Be Giants
+--------------------------------------------
+- Add: HTTPClient uses User-Agent string of "del.icio.us Java/(version)" where (version) reflects the
+       current version of the library
+- Add: Constructor and methods to set HTTP proxy information
+- Bug: 1047683 - method Post.getDateAsTime() displays wrong timezone
+       https://sourceforge.net/tracker/index.php?func=detail&aid=1047683&group_id=121225&atid=689673
+
+Version 1.0 - Codename: Joy Division
+------------------------------------
+Initial release

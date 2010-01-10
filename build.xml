@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================= -->
+<!-- del.icio.us Java API                                                    -->
+<!-- ======================================================================= -->
+<project name="delicious" default="compile" basedir=".">
+
+    <property name="name" value="delicious"/>
+    <property name="version" value="1.15"/>
+
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="etc.dir" value="${basedir}/etc"/>
+    <property name="classes.dir" value="${basedir}/classes"/>
+    <property name="compile.dir" value="${basedir}/compile"/>
+    <property name="manifest.dir" value="${compile.dir}/META-INF"/>
+    <property name="javadoc.home" value="${basedir}/api"/>
+    <property name="distribution.dir" value="${basedir}/distribution"/>
+    <property name="delicious.jar" value="${distribution.dir}/${name}-${version}.jar"/>
+    <property name="source.zip" value="${distribution.dir}/${name}-${version}-source.zip"/>
+    <property name="javadocs.zip" value="${distribution.dir}/${name}-${version}-javadocs.zip"/>
+    <property name="bundle-with-dependencies.zip" value="${distribution.dir}/${name}-${version}-with-dependencies.zip"/>
+
+    <!-- =================================================================== -->
+    <!-- Classpath for compiling                                             -->
+    <!-- =================================================================== -->
+    <path id="build.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Classpath for running                                               -->
+    <!-- =================================================================== -->
+    <path id="run.classpath">
+        <path refid="build.classpath"/>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Sourcepath for Javadoc                                              -->
+    <!-- =================================================================== -->
+    <path id="javadoc.sourcepath">
+        <fileset dir="${src.dir}">
+            <include name="**/*.java"/>
+        </fileset>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Cleans up generated stuff                                           -->
+    <!-- =================================================================== -->
+    <target name="clean" description="Removes generated files">
+        <delete dir="${compile.dir}"/>
+        <delete dir="${classes.dir}"/>
+        <delete dir="${distribution.dir}"/>
+        <delete dir="${javadoc.home}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Prepares the build directory                                        -->
+    <!-- =================================================================== -->
+    <target name="prepare" description="Prepare the directories">
+        <tstamp/>
+        <mkdir dir="${distribution.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Compiles the source code                                            -->
+    <!-- =================================================================== -->
+    <target name="compile" depends="prepare" description="Compiles the class files">
+        <mkdir dir="${compile.dir}"/>
+        <mkdir dir="${manifest.dir}"/>
+        <copy todir="${manifest.dir}">
+            <fileset dir="${etc.dir}">
+                <include name="**/*.tld"/>
+            </fileset>
+        </copy>
+        <javac srcdir="${src.dir}"
+            destdir="${compile.dir}"
+            debug="on"
+            deprecation="on"
+            optimize="on">
+            <classpath refid="build.classpath"/>
+        </javac>
+        <jar jarfile="${delicious.jar}" basedir="${compile.dir}" />
+        <delete dir="${compile.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Create the javadoc                                                  -->
+    <!-- =================================================================== -->
+    <target name="javadoc" depends="prepare" description="Generate javadocs for the source code">
+        <delete dir="${javadoc.home}"/>
+        <mkdir dir="${javadoc.home}"/>
+        <javadoc packagenames="*"
+            destdir="${javadoc.home}"
+            windowtitle="${name} ${version} API"
+            doctitle="${name} ${version} API">
+            <fileset dir="${src.dir}" defaultexcludes="yes">
+                <include name="**/*.java"/>
+            </fileset>
+        </javadoc>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Create a source distribution                                        -->
+    <!-- =================================================================== -->
+    <target name="create-source-distribution" depends="clean, prepare" description="Creates the source distribution">
+        <tstamp/>
+        <zip zipfile="${source.zip}">
+            <zipfileset dir="${basedir}">
+                <!-- Base files -->
+                <include name="build.xml"/>
+                <include name="changelog.txt"/>
+                <include name="LICENSE"/>
+
+                <!-- Source directories -->
+                <include name="src/**"/>
+                <include name="test/**"/>
+
+                <!-- Library directory -->
+                <include name="lib/"/>
+            </zipfileset>
+        </zip>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Create a distribution with dependencies included                    -->
+    <!-- =================================================================== -->
+    <target name="create-bundle-with-dependencies" depends="clean, compile" description="Creates a distribution with the JAR file and required libraries">
+        <zip zipfile="${bundle-with-dependencies.zip}">
+            <zipfileset file="${delicious.jar}"/>
+            <zipfileset dir="${lib.dir}">
+                <include name="**/*.jar"/>
+                <exclude name="**/junit*.jar"/>
+                <exclude name="**/servlet*.jar"/>
+            </zipfileset>
+        </zip>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates a ZIP of the javadocs for the website                       -->
+    <!-- =================================================================== -->
+    <target name="create-javadocs-archive" depends="javadoc" description="Creates a ZIP of the javadocs">
+        <zip zipfile="${javadocs.zip}" basedir="${javadoc.home}"/>
+    </target>
+</project>
+
